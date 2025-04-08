@@ -1,0 +1,19 @@
+# Ignore node_modules
+client/node_modules/
+server/node_modules/
+
+# Ignore environment files
+.env
+server/.env
+
+# Ignore uploads (keep folder structure)
+server/uploads/*
+!server/uploads/.gitkeep
+
+# Ignore build/dist folders
+client/build/
+server/dist/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
