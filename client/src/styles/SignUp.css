@@ -1,0 +1,172 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.hero {
+  /* height: 100vh; */
+  width: 100%;
+  background-color: linear-gradient(135deg, #6c63ff, #3f3d56);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.background{
+  background-image: url("../public/Img/background.jpg");
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;
+}
+
+.form-box {
+  width: 400px;
+  height: 670px;
+  position: relative;
+  margin: 6% auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background: #fff;
+  /* background-image: src = "G:\Project\real-estate-app\client\public\Img\background.jpg"; */
+  padding: 5px;
+  overflow: hidden;
+}
+
+.button-box {
+  width: 265px;
+  margin: 35px auto;
+  position: relative;
+  box-shadow: 0 0 20px 9px #ff61241f;
+  border-radius: 30px;
+}
+
+.toggle-btn {
+  /* padding: 10px 30px; */
+  margin-left: 17px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  position: relative;
+  color: #4F4A91;
+  /* font-weight: 500; */
+  font-weight: bold;
+  /* font-size: 15px; */
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.profile-photo {
+  width: 40px;
+  height: 40px;
+  margin-top: 4px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.profile-photo:hover {
+  opacity: 0.8;
+}
+
+.file-input {
+  display: none;
+}
+
+
+#btn {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 110px;
+  height: 100%;
+  color: #4F4A91;
+  background: linear-gradient(to right, #ff105f, #ffad06);
+  border-radius: 30px;
+  transition: 0.5s;
+}
+
+.social-icons {
+  margin: 30px auto;
+  text-align: center;
+}
+
+.social-icons img {
+  width: 30px;
+  margin: 0 12px;
+  box-shadow: 0 0 20px 0 #7f7f7f3d;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.input-group {
+  top: 100px;
+  position: absolute;
+  width: 280px;
+  transition: 0.5s;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 0;
+  margin: 5px 0;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 1px solid #999;
+  outline: none;
+  background: transparent;
+}
+
+.submit-btn {
+  width: 85%;
+  padding: 10px 30px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background-color: #333333;
+  border: none;
+  outline: none;
+  border-radius: 30px;
+}
+
+.check-box {
+  margin: 30px 10px 30px 0;
+  margin-top: 39px;
+  margin-left: 0px;
+  margin-right: 306px;
+
+}
+
+span {
+  
+  left: 69.5;
+  left: 33px;
+  color: #777;
+  font-size: 12px;
+  bottom: 68px;
+  position: absolute;
+}
+
+#login {
+  left: 50px;
+}
+
+#register {
+  left: 450px;
+}

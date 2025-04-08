@@ -1,0 +1,22 @@
+.conveniences {
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  .conveniences h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+  
+  .conveniences ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .conveniences ul li {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    font-size: 1.2em;
+  }

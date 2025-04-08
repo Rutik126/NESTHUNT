@@ -1,0 +1,83 @@
+/* SignIn Page Styling Like SignUp Page */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.signin {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../public/Img/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.signin-box {
+  width: 400px;
+  height: 500px;
+  background: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  position: relative;
+}
+
+.signin h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #4F4A91;
+}
+
+.signin form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  
+}
+
+
+.signin select,
+.signin input {
+  width: 80%;
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid #999;
+  outline: none;
+  background: transparent;
+  transition: border-bottom 0.3s ease;
+  
+}
+
+.signin input:focus,
+.signin select:focus {
+  border-bottom: 2px solid #4F4A91;
+}
+
+.signin button {
+  width: 85%;
+  padding: 10px 0;
+  background: linear-gradient(to right, #ff105f, #ffad06);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  transition: background 0.3s ease;
+}
+
+.signin button:hover {
+  background: #4F4A91;
+}
+
+.error {
+  color: #ff0000;
+  margin-bottom: 10px;
+}

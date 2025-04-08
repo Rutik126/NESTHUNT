@@ -1,0 +1,37 @@
+.search {
+    padding: 20px;
+    background-color: #f4f4f4;
+    text-align: center;
+  }
+  
+  .search h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+  
+  .search form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .search form input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 80%;
+    max-width: 300px;
+    font-size: 1em;
+  }
+  
+  .search form button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .search form button:hover {
+    background-color: #555;
+  }
