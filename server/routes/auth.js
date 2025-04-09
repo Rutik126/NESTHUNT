@@ -9,6 +9,8 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const path = require('path');
+
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({

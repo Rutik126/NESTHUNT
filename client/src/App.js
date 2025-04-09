@@ -10,6 +10,7 @@ import UserProfile from './pages/UserProfile';
 import RoomOwnerProfile from './pages/RoomOwnerProfile';
 import Search from './pages/Search';
 import Banner from './components/banner';
+// import Advertisement from './components/Advertisement';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
 
@@ -46,6 +47,7 @@ function App() {
             element={
               <>
                 <Banner />
+                {/* <Advertisement /> */}
                 {isLoggedIn && <Hero />} {/* Render Hero only if logged in */}
                 <TopApartments />
                 {/* <Conveniences /> */}

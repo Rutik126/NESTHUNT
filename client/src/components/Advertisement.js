@@ -5,12 +5,12 @@ const Advertisement = () => {
   return (
     <div className="advertisement-page">
       {/* Showcase Hero Section */}
-      <section className="showcase">
+      {/* <section className="showcase">
         <div className="showcase-content">
           <h1>Rent your spare room</h1>
           <p>Join our trusted host community and earn by sharing your unused space. Flexible stays, verified guests, and full control over your property.</p>
         </div>
-      </section>
+      </section> */}
 
       {/* Info Section */}
       <section className="info-section">
