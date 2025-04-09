@@ -13,7 +13,10 @@ server/uploads/*
 # Ignore build/dist folders
 client/build/
 server/dist/
+uploads/
+
 
 # OS-specific files
 .DS_Store
 Thumbs.db
+
