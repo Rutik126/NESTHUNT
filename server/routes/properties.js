@@ -12,7 +12,10 @@ ensureUploadsDir('properties');
 // Configure multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '../../uploads/properties'));
+    // Use path.join to create a relative path
+    const uploadPath = path.join(__dirname, 'uploads');
+    fs.mkdirSync(uploadPath, { recursive: true }); // Create directory if it doesn't exist
+    cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
