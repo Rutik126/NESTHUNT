@@ -4,10 +4,17 @@ const RoomOwner = require('../models/RoomOwner');
 const auth = require('../middleware/auth');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 const { ensureUploadsDir } = require('../utils/fileUpload');
 const router = express.Router();
 
 ensureUploadsDir('properties');
+
+const uploadDir = path.join(process.cwd(), 'temp_uploads');
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 // Configure multer storage
 const storage = multer.diskStorage({
