@@ -19,8 +19,20 @@ const PropertySchema = new mongoose.Schema({
     required: true 
   },
   description: { type: String, required: true },
-  images: [{ type: String }], // Array of image paths
-  mainImage: { type: String }, // Main image path
+  images: [{ 
+    type: String,
+    required: true,
+    validate: {
+      validator: function(v) {
+        return v.length > 0;
+      },
+      message: 'At least one image is required'
+    }
+  }], // Array of image paths
+  mainImage: {
+    type: String,
+    required: true
+  }, // Main image path
   vacant: { type: Boolean, default: true },
   owner: { 
     type: mongoose.Schema.Types.ObjectId, 

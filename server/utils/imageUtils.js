@@ -10,9 +10,12 @@ export const getProfileImageUrl = (imagePath) => {
   
   // Handle Windows paths
   const normalizedPath = imagePath.replace(/\\/g, '/');
+
+  const cleanPath = normalizedPath.replace(/^\/+/, '');
   
   // Remove any leading server path if present
-  const relativePath = normalizedPath.replace(/^.*\/uploads\//, '/uploads/');
+  // const relativePath = normalizedPath.replace(/^.*\/uploads\//, '/uploads/');
   
-  return `http://localhost:5000${relativePath}`;
+  // return `http://localhost:5000${relativePath}`;
+  return `http://localhost:5000/${cleanPath}`;
 };

@@ -300,3 +300,69 @@
 body.modal-open {
   overflow: hidden;
 }
+@media (max-width: 768px) {
+  .hero {
+    padding: 1rem;
+  }
+
+  .user-info {
+    padding: 1rem;
+  }
+
+  .filter-section {
+    flex-direction: column;
+  }
+
+  .filter-select {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .gallery-content {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .gallery-main-image {
+    height: auto;
+    max-height: 300px;
+  }
+
+  .nav-button {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .contact-btn,
+  .save-btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .modal-details {
+    padding: 0.5rem;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .contact-modal {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .contact-modal p {
+    font-size: 0.95rem;
+  }
+
+  .status-badge {
+    font-size: 0.8rem;
+  }
+}

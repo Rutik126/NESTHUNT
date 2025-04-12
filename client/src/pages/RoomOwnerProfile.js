@@ -564,8 +564,8 @@ const AddPropertyPage = ({
 };
 
 const ManagePropertiesPage = ({ properties, setActivePage, toggleVacancy }) => {
-  const [selectedProperty, setSelectedProperty] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [setSelectedProperty] = useState(null);
+  const [setCurrentImageIndex] = useState(0);
 
   const getCleanAddress = (location) => {
     if (!location) return "Location not specified";
@@ -579,18 +579,18 @@ const ManagePropertiesPage = ({ properties, setActivePage, toggleVacancy }) => {
     setCurrentImageIndex(0);
   };
 
-  const nextImage = () => {
-    setCurrentImageIndex(prev => 
-      (prev + 1) % (selectedProperty.images?.length || 1)
-    );
-  };
+  // const nextImage = () => {
+  //   setCurrentImageIndex(prev => 
+  //     (prev + 1) % (selectedProperty.images?.length || 1)
+  //   );
+  // };
 
-  const prevImage = () => {
-    setCurrentImageIndex(prev => 
-      (prev - 1 + (selectedProperty.images?.length || 1)) % 
-      (selectedProperty.images?.length || 1)
-    );
-  };
+  // const prevImage = () => {
+  //   setCurrentImageIndex(prev => 
+  //     (prev - 1 + (selectedProperty.images?.length || 1)) % 
+  //     (selectedProperty.images?.length || 1)
+  //   );
+  // };
 
   return (
     <div className="manage-properties-page">

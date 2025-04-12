@@ -56,17 +56,15 @@ app.use(
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
   setHeaders: (res, filePath) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET');
-    // Set proper content-type header
-    const ext = path.extname(filePath);
+    const ext = path.extname(filePath).toLowerCase();
     if (ext === '.jpg' || ext === '.jpeg') {
       res.setHeader('Content-Type', 'image/jpeg');
     } else if (ext === '.png') {
       res.setHeader('Content-Type', 'image/png');
     }
-    // Add CORS headers if needed
-    // res.setHeader('Access-Control-Allow-Origin', '*');
+    // Add CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
   }
 }));
 

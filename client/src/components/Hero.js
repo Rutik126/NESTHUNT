@@ -3,14 +3,9 @@ import axios from 'axios';
 import Advertisement from './Advertisement';
 import '../styles/Hero.css';
 import '../styles/RoomOwner.css';
+import { getImageUrl, getDefaultPropertyImage } from '../utils/imageUtils';
 
 const Hero = () => {
-  const getImageUrl = (imgPath) => {
-    if (!imgPath) return '/default-property.jpg';
-    if (imgPath.startsWith('http')) return imgPath;
-    return `http://localhost:5000/${imgPath.replace(/^\/+/, '')}`;
-  };
-  
   const [showContactModal, setShowContactModal] = useState(false);
   const [ownerPhone, setOwnerPhone] = useState('');
   const [user, setUser] = useState(null);
@@ -257,10 +252,13 @@ const Hero = () => {
                 >
                   <div className="property-img-box">
                     <img
-                      src={mainImage}
+                      src={images && images.length > 0 ? getImageUrl(images[0]) : getDefaultPropertyImage()}
                       alt={property.name}
+                      onError={(e) => {
+                        e.target.src = getDefaultPropertyImage();
+                      }}
                     />
-                    {images.length > 1 && (
+                    {images && images.length > 1 && (
                       <div className="photo-count">+{images.length - 1} more</div>
                     )}
                   </div>
@@ -290,7 +288,7 @@ const Hero = () => {
                           <h3>Contact Property Owner</h3>
                           <p>Phone: {ownerPhone}</p>
                           <div className="modal-actions">
-                            <a href={`tel:${ownerPhone}`} className="call-btn">Call Now</a>
+                            <a href={`tel:+91${ownerPhone.replace(/\D/g, '')}`} className="call-btn">Call Now</a>
                             <button onClick={closeContactModal}>Close</button>
                           </div>
                         </div>
@@ -324,6 +322,9 @@ const Hero = () => {
               <img
                 src={getImageUrl(selectedProperty.images?.[currentImageIndex] || selectedProperty.image)}
                 alt={selectedProperty.name}
+                onError={(e) => {
+                  e.target.src = getDefaultPropertyImage();
+                }}
               />
               <button className="nav-button prev" onClick={(e) => { e.stopPropagation(); prevImage(); }}>
                 &#10094;

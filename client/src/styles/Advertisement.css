@@ -151,3 +151,28 @@
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     }
   }
+
+  @media (max-width: 768px) {
+    .showcase {
+      height: auto;
+      padding: 60px 15px;
+    }
+  
+    .showcase-content h1 {
+      font-size: 1.8rem;
+    }
+  
+    .showcase-content p {
+      font-size: 1rem;
+    }
+  
+    .info-section h2,
+    .features-section h2 {
+      font-size: 1.5rem;
+    }
+  
+    .info-card {
+      max-width: 100%;
+    }
+  }
+  

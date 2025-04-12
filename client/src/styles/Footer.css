@@ -10,3 +10,13 @@ footer {
     margin: 5px 0;
     font-size: 1em;
   }
+
+  @media (max-width: 768px) {
+    footer{
+      margin-top: 96%;
+    }
+    footer p {
+      font-size: 0.9rem;
+    }
+  }
+  

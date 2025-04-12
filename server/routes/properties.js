@@ -19,9 +19,8 @@ if (!fs.existsSync(uploadDir)) {
 // Configure multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    // Use path.join to create a relative path
-    const uploadPath = path.join(__dirname, 'uploads');
-    fs.mkdirSync(uploadPath, { recursive: true }); // Create directory if it doesn't exist
+    const uploadPath = path.join(__dirname, '../uploads/properties');
+    fs.mkdirSync(uploadPath, { recursive: true });
     cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
@@ -81,35 +80,35 @@ router.patch('/:id/vacancy', auth, async (req, res) => {
 
 
 // Get all public properties
+// In GET /api/properties/ endpoint
 router.get('/', async (req, res) => {
   try {
     const properties = await Property.find({})
-      .populate('owner', 'username email phone')
-      .select('-__v -createdAt -updatedAt')
-      .limit(50);
+      .populate('owner', 'username email phone');
 
-    // Process properties for frontend
-    const processedProperties = properties.map(prop => ({
-      ...prop._doc,
-      image: prop.image ? `http://localhost:5000${prop.image}` : null,
-      owner: {
-        name: prop.owner?.username,
-        contact: prop.owner?.phone,
-        email: prop.owner?.email
-      }
-    }));
+    // Process properties with complete image URLs
+    const processedProperties = properties.map(property => {
+      const propertyObj = property.toObject();
+      
+      // Convert images to full URLs
+      propertyObj.images = propertyObj.images.map(img => 
+        img.startsWith('http') ? img : `http://localhost:5000${img}`
+      );
+      
+      // Convert mainImage to full URL
+      propertyObj.mainImage = propertyObj.mainImage?.startsWith('http') 
+        ? propertyObj.mainImage 
+        : `http://localhost:5000${propertyObj.mainImage}`;
+      
+      return propertyObj;
+    });
 
     res.json({
       success: true,
-      count: processedProperties.length,
       properties: processedProperties
     });
   } catch (err) {
-    console.error('Error fetching properties:', err);
-    res.status(500).json({
-      success: false,
-      message: 'Server error fetching properties'
-    });
+    // error handling
   }
 });
 

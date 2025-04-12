@@ -165,3 +165,14 @@
     height: 150px;
   }
 }
+
+.no-saved-properties {
+  text-align: center;
+  padding: 2rem;
+  color: #000000;
+}
+
+.no-saved-properties h4 {
+  color: #000000;
+  margin-top: 1rem;
+}

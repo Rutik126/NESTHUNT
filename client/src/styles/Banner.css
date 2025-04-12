@@ -30,7 +30,7 @@ h2 {
 }
 
 p {
-  color: #ffffff;
+  color: #262626;
   font-size: 1.1rem;
   margin-bottom: 2rem;
 }
@@ -74,5 +74,40 @@ button {
   
   .search-bar button:hover {
     background: #45a049;
+  }
+  
+
+  @media (max-width: 768px) {
+    .hero-section {
+      height: auto;
+      padding: 40px 20px;
+    }
+  
+    h1 {
+      font-size: 2rem;
+    }
+  
+    h2 {
+      font-size: 1.3rem;
+    }
+  
+    p {
+      font-size: 1rem;
+    }
+  
+    .search-bar {
+      flex-direction: column;
+      box-shadow: none;
+    }
+  
+    .search-bar input,
+    .search-bar button {
+      width: 100%;
+      border-radius: 0;
+    }
+  
+    .search-bar button {
+      border-top: 1px solid #ccc;
+    }
   }
   
