@@ -32,16 +32,19 @@ body {
 
 /* ========== Sidebar ========== */
 .sidebar {
+  width: 250px;
+  background: white;
   position: fixed;
-  top: 81px;
   left: 0;
-  height: 100vh; /* Full viewport height */
-  width: 250px; /* Adjust width as per your layout */
-  background-color: #413e5c;
-  color: white;
-  padding: 1rem;
-  overflow-y: auto; /* Scroll inside sidebar if content is long */
-  z-index: 1000; /* Make sure it stays above content */
+  top: 81px;
+  bottom: 0; /* Changed from height: 100vh */
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  z-index: 100;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar ul {
@@ -54,6 +57,78 @@ body {
   text-align: center;
   font-size: 20px;
   margin-bottom: 20px;
+}
+
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    transform: translateX(-100%);
+    z-index: 1000;
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  /* Overlay when sidebar is open */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+  }
+  
+  .sidebar-overlay.open {
+    display: block;
+  }
+}
+
+/* Adjust content area when sidebar is open */
+.content {
+  flex: 1;
+  margin-left: 250px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  min-height: calc(100vh - 81px); /* Account for header */
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin-left: 0;
+    padding: 20px;
+  }
+  
+  .sidebar-open .content {
+    margin-left: 0;
+  }
+}
+
+/* Toggle button for mobile */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1001;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    display: block;
+  }
 }
 
 .nav-item {
@@ -72,10 +147,220 @@ body {
 /* ========== Main Content ========== */
 .content {
   flex: 1;
-  padding: 30px;
-  overflow-y: auto;
-  margin-left: 250px; /* Same as sidebar width */
+  margin-left: 250px;
   padding: 2rem;
+  transition: all 0.3s ease;
+  min-height: calc(100vh - 81px); /* Account for header */
+}
+/* Profile Header Responsive */
+.profile-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.profile-pic {
+  flex-shrink: 0;
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Profile Details Grid */
+.profile-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Property Cards Responsive */
+.property-card-modern {
+  display: flex;
+  flex-direction: column;
+}
+
+.property-left {
+  width: 100%;
+  height: 200px;
+}
+
+.property-right {
+  padding: 1.25rem;
+}
+
+/* Form Responsive Adjustments */
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Image Upload Responsive */
+.image-previews {
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+}
+
+/* Property Actions Stack on Mobile */
+.property-actions {
+  flex-wrap: wrap;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  .content {
+    padding: 1.5rem;
+  }
+  
+  .property-card-modern {
+    flex-direction: row;
+  }
+  
+  .property-left {
+    width: 40%;
+    height: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .profile-pic {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .property-card-modern {
+    flex-direction: column;
+  }
+  
+  .property-left {
+    width: 100%;
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+  
+  .profile-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .property-footer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .actions {
+    width: 100%;
+  }
+  
+  .actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .content {
+    padding: 1rem 0.75rem;
+  }
+  
+  .profile-pic img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .property-image-container {
+    height: 180px;
+  }
+  
+  .form-container {
+    padding: 1rem;
+  }
+  
+  .image-previews {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}
+
+/* Special Cases */
+@media (max-height: 600px) and (orientation: landscape) {
+  .content {
+    padding: 1rem;
+  }
+  
+  .profile-header {
+    flex-direction: row;
+  }
+  
+  .property-left {
+    height: 150px;
+  }
+}
+
+/* High Resolution Screens */
+@media (min-width: 1920px) {
+  .content {
+    max-width: 1600px;
+    margin: 0 auto;
+    margin-left: 250px;
+    padding: 3rem;
+  }
+  
+  .main-content-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Fluid Typography */
+@media (min-width: 1400px) {
+  .content {
+    font-size: 1.05rem;
+  }
+  
+  .property-info h3 {
+    font-size: 1.4rem;
+  }
+}
+
+/* Touch Target Sizes */
+@media (pointer: coarse) {
+  .btn, .nav-item, .actions button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .form-control {
+    padding: 15px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .sidebar, .sidebar-toggle {
+    display: none;
+  }
+  
+  .content {
+    margin-left: 0;
+    padding: 0;
+  }
+  
+  .property-card-modern {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
 }
 
 /* ========== Profile Header ========== */

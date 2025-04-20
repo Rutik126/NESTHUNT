@@ -280,7 +280,7 @@
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  z-index: 1001; /* Above the image gallery */
+  z-index: 1000; /* Above the image gallery */
   width: 90%;
   max-width: 400px;
   animation: fadeIn 0.3s ease-out;
@@ -353,10 +353,10 @@ body.modal-open {
     flex-direction: column;
   }
 
-  .contact-modal {
+  /* .contact-modal {
     width: 90%;
     padding: 1rem;
-  }
+  } */
 
   .contact-modal p {
     font-size: 0.95rem;

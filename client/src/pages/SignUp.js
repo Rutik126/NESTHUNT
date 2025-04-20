@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/SignUp.css';
@@ -18,11 +18,26 @@ const SignUp = ({ setIsLoggedIn }) => {
     password: '',
     phone: '',
     profilePhoto: null,
+    location: ''
   });
 
-  const [setError] = useState('');
-  const [isUser, setIsUser] = useState(true); // Toggle between User and RoomOwner
+  const [error, setError] = useState('');
+  const [isUser, setIsUser] = useState(true);
+  const [otp, setOtp] = useState('');
+  const [otpSentTo, setOtpSentTo] = useState('');
+  const [otpSent, setOtpSent] = useState('');
+  const [showOtpField, setShowOtpField] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [countdown, setCountdown] = useState(0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let timer;
+    if (countdown > 0) {
+      timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [countdown]);
 
   const handleUserChange = (e) => {
     const { name, value } = e.target;
@@ -43,23 +58,76 @@ const SignUp = ({ setIsLoggedIn }) => {
     }
   };
 
+  const sendOtp = async () => {
+    try {
+      const data = isUser ? userData : roomOwnerData;
+      const phone = data.phone;
+      
+      if (!phone) {
+        setError('Phone number is required');
+        return;
+      }
+  
+      const response = await axios.post('http://localhost:5000/api/auth/send-otp', {
+        phone: phone
+      });
+  
+      if (response.data.message === 'OTP sent successfully') {
+        setOtpSentTo(phone);
+        setShowOtpField(true);
+        setCountdown(300); // 5 minutes
+        setError('');
+        alert('OTP sent to your phone number');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Error sending OTP');
+      console.error('OTP Error:', err);
+    }
+  };
+
+  const verifyOtp = async () => {
+    try {
+      const data = isUser ? userData : roomOwnerData;
+      const response = await axios.post('http://localhost:5000/api/auth/verify-otp', {
+        phone: data.phone,
+        otp: otp
+      });
+  
+      if (response.data.verified) {
+        setIsVerified(true);
+        setShowOtpField(false);
+        setError('');
+        alert('Phone number verified successfully');
+      } else {
+        setError('Invalid OTP code');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Error verifying OTP');
+    }
+  };
+
   const handleSubmit = async (e, isUserForm) => {
     e.preventDefault();
     try {
+      if (!isVerified) {
+        setError('Please verify your phone/email with OTP first');
+        return;
+      }
+
       const formData = new FormData();
       const data = isUserForm ? userData : roomOwnerData;
-  
+
       formData.append('username', data.username);
       formData.append('email', data.email);
       formData.append('password', data.password);
       formData.append('phone', data.phone);
       if (!isUserForm) {
-        formData.append('location', data.location); // Add location for room owners
+        formData.append('location', data.location);
       }
       if (data.profilePhoto) {
         formData.append('profilePhoto', data.profilePhoto);
       }
-  
+
       const response = await axios.post(
         `http://localhost:5000/api/auth/register${isUserForm ? '' : '-roomowner'}`,
         formData,
@@ -68,7 +136,7 @@ const SignUp = ({ setIsLoggedIn }) => {
           withCredentials: true,
         }
       );
-  
+
       if (response.status === 201) {
         setIsLoggedIn(true);
         navigate('/');
@@ -78,6 +146,51 @@ const SignUp = ({ setIsLoggedIn }) => {
       console.error('Error during registration:', err.response?.data || err.message);
     }
   };
+
+  const renderOtpSection = () => (
+    <div className="otp-section">
+      {!otpSent ? (
+        <button type="button" className="otp-btn" onClick={sendOtp}>
+          Send OTP
+        </button>
+      ) : (
+        <>
+          {showOtpField && (
+            <>
+              <p className="otp-sent-msg">OTP sent to {otpSentTo}</p>
+              <input
+                type="text"
+                className="input-field"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+              <button type="button" className="otp-btn" onClick={verifyOtp}>
+                Verify OTP
+              </button>
+              {countdown > 0 && (
+                <p className="countdown">
+                  OTP expires in: {Math.floor(countdown / 60)}:
+                  {countdown % 60 < 10 ? '0' : ''}{countdown % 60}
+                </p>
+              )}
+              <button 
+                type="button" 
+                className="resend-btn" 
+                onClick={sendOtp}
+                disabled={countdown > 0}
+              >
+                Resend OTP {countdown > 0 && `(in ${countdown}s)`}
+              </button>
+            </>
+          )}
+          {isVerified && (
+            <p className="verified-text">✓ Verified successfully</p>
+          )}
+        </>
+      )}
+    </div>
+  );
 
   return (
     <div className='background'>
@@ -149,6 +262,9 @@ const SignUp = ({ setIsLoggedIn }) => {
             onChange={handleUserChange}
             required
           />
+          
+          {renderOtpSection()}
+          
           <input
             type="password"
             className="input-field"
@@ -222,6 +338,9 @@ const SignUp = ({ setIsLoggedIn }) => {
             onChange={handleRoomOwnerChange}
             required
           />
+
+            {renderOtpSection()}
+
           <input
             type="text"
             className="input-field"
@@ -230,7 +349,9 @@ const SignUp = ({ setIsLoggedIn }) => {
             value={roomOwnerData.location}
             onChange={handleRoomOwnerChange}
             required
-          /><br br></br>
+          />
+          
+          
           <input
             type="password"
             className="input-field"
@@ -246,6 +367,7 @@ const SignUp = ({ setIsLoggedIn }) => {
             Register
           </button>
         </form>
+        {error && <p className="error-message">{error}</p>}
       </div>
     </div>
   );

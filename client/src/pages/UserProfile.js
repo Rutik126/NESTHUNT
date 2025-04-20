@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaTrash, FaHeart } from 'react-icons/fa'; // Import icons
 import '../styles/UserProfile.css';
-import { getImageUrl, getDefaultProfileImage, getDefaultPropertyImage } from '../utils/imageUtils';
+import { getImageUrl, getDefaultPropertyImage } from '../utils/imageUtils';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState(null);
@@ -40,7 +40,7 @@ const UserProfile = () => {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => { 
     const fetchUserProfile = async () => {
       try {
         setIsLoading(true);
@@ -150,13 +150,16 @@ const UserProfile = () => {
         <div className="profile-card">
           <div className="profile-header">
             <img
-              src={getImageUrl(profile.profilePhoto)}
+              src={
+                profile.profilePhoto
+                  ? `http://localhost:5000/${profile.profilePhoto.replace(/\\/g, '/')}`
+                  : 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'
+              }
               alt="Profile"
               className="profile-image"
               onError={(e) => {
-                console.error('Error loading profile image:', e.target.src);
                 e.target.onerror = null;
-                e.target.src = getDefaultProfileImage();
+                e.target.src = 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';
               }}
             />
             <h2 className="profile-name">{profile.username}</h2>

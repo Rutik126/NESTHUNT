@@ -9,6 +9,12 @@ const RoomOwnerProfile = () => {
     if (imgPath.startsWith('http')) return imgPath;
     return `http://localhost:5000/${imgPath.replace(/^\/+/, '')}`;
   };
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+  
     
   const [advertisement, setAdvertisement] = useState(null);
   const [roomOwner, setRoomOwner] = useState({
@@ -247,8 +253,8 @@ const RoomOwnerProfile = () => {
 
   
   return (
-    <div className="dashboard-container">
-      <aside className="sidebar">
+    <div className={`dashboard-container ${sidebarOpen ? 'sidebar-open' : ''}`}>
+      <div className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <h2>Dashboard</h2>
         <ul >
           <li 
@@ -270,8 +276,19 @@ const RoomOwnerProfile = () => {
             Manage Properties
           </li>
         </ul>
-      </aside>
+      </div>
 
+      {sidebarOpen && (
+    <div 
+      className={`sidebar-overlay ${sidebarOpen ? 'open' : ''}`}
+      onClick={toggleSidebar}
+    />
+  )}
+  
+  <button className="sidebar-toggle" onClick={toggleSidebar}>
+    ☰
+  </button>
+  
       <div className="content">
         {loading && activePage !== "profile" && (
           <div className="loading-overlay">

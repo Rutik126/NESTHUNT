@@ -7,6 +7,8 @@ const RoomOwnerSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   profilePhoto: { type: String },
   location: { type: String, required: true },
+  isPhoneVerified: { type: Boolean, default: false },
+  isEmailVerified: { type: Boolean, default: false },
   properties: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Property'

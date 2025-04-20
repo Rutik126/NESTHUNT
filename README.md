@@ -1,70 +1,145 @@
-# Getting Started with Create React App
+# NESTHUNT - Real Estate Rental Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+NESTHUNT is a modern real estate rental platform that connects property owners with potential tenants. The platform provides an intuitive interface for property listings, user management, and property management.
 
-## Available Scripts
+## 🌟 Features
 
-In the project directory, you can run:
+### For Tenants
+- Browse and search properties with advanced filters
+- Save favorite properties
+- Contact property owners directly
+- View property details with image galleries
+- Location-based property search with map integration
 
-### `npm start`
+### For Property Owners
+- Create and manage property listings
+- Upload multiple property images
+- Toggle property vacancy status
+- Manage property details and descriptions
+- View property statistics
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### General Features
+- User authentication and authorization
+- Responsive design for all devices
+- Real-time property status updates
+- Secure payment integration
+- Interactive property maps
+- Image gallery with navigation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Tech Stack
 
-### `npm test`
+### Frontend
+- React.js
+- React Router for navigation
+- Axios for API calls
+- CSS3 for styling
+- Google Maps API for location services
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- JWT for authentication
+- Multer for file uploads
 
-### `npm run build`
+## 🚀 Getting Started
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB
+- npm or yarn
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository
+```bash
+git clone https://github.com/Rutik126/NESTHUNT.git
+cd NESTHUNT
+```
 
-### `npm run eject`
+2. Install dependencies for both client and server
+```bash
+# Install server dependencies
+cd server
+npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Install client dependencies
+cd ../client
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Set up environment variables
+Create a `.env` file in the server directory with:
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_jwt_secret
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4. Start the development servers
+```bash
+# Start the backend server
+cd server
+npm run dev
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Start the frontend development server
+cd client
+npm start
+```
 
-## Learn More
+The application will be available at:
+- Frontend: http://localhost:3000
+- Backend: http://localhost:5000
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📦 Available Scripts
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Server
+```bash
+npm run dev      # Start development server
+npm start        # Start production server
+npm test         # Run tests
+```
 
-### Code Splitting
+### Client
+```bash
+npm start        # Start development server
+npm build        # Build for production
+npm test         # Run tests
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🤝 Contributing
 
-### Analyzing the Bundle Size
+We welcome contributions! Please follow these steps:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### Making a Progressive Web App
+## 📝 License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### Advanced Configuration
+## 👥 Authors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- Rutik126 - Initial work
 
-### Deployment
+## 🙏 Acknowledgments
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Thanks to all contributors who have helped shape this project
+- Special thanks to the open-source community for their invaluable tools and libraries
 
-### `npm run build` fails to minify
+## 📞 Support
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For support, email rutik@example.com or open an issue in the GitHub repository.
+
+## 🔗 Links
+
+- [GitHub Repository](https://github.com/Rutik126/NESTHUNT)
+- [Issue Tracker](https://github.com/Rutik126/NESTHUNT/issues)
+- [Pull Requests](https://github.com/Rutik126/NESTHUNT/pulls)
+
+---
+
+Made with ❤️ by Rutik126

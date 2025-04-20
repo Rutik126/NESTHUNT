@@ -6,6 +6,8 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true }, // Hashed password
   phone: { type: String, required: true }, // Masked phone number
   profilePhoto: { type: String }, // Path to the uploaded file
+  isPhoneVerified: { type: Boolean, default: false },
+  isEmailVerified: { type: Boolean, default: false },
   savedProperties: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Property'

@@ -25,6 +25,7 @@
     "passport-local": "^1.0.0",
     "react-leaflet": "^5.0.0",
     "server": "file:",
-    "swiper": "^11.2.5"
+    "swiper": "^11.2.5",
+    "twilio": "^5.5.2"
   }
 }

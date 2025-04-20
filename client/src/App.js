@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import TopApartments from './components/TopApartments';
@@ -13,6 +13,22 @@ import Banner from './components/banner';
 // import Advertisement from './components/Advertisement';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
+import PageNotFound from './components/PageNotFound';
+
+const ProtectedRoute = ({ children, userType }) => {
+  const token = localStorage.getItem('token');
+  const storedUserType = localStorage.getItem('userType');
+
+  if (!token) {
+    return <Navigate to="/signin" replace />;
+  }
+
+  if (userType && storedUserType !== userType) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -54,11 +70,32 @@ function App() {
               </>
             }
           />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/roomowner-profile" element={<RoomOwnerProfile />} />
+          <Route path="/profile" element={ isLoggedIn && <UserProfile />} />
+          <Route path="/roomowner-profile" element={ isLoggedIn && <RoomOwnerProfile />} />
           <Route path="/search" element={<Search />} />
           <Route path="/signup" element={<SignUp setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signin" element={<SignIn setIsLoggedIn={setIsLoggedIn} />} />
+          
+          {/* Protected Routes */}
+          <Route
+            path="/user-profile"
+            element={
+              <ProtectedRoute userType="user">
+                <UserProfile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/roomowner-profile"
+            element={
+              <ProtectedRoute userType="roomowner">
+                <RoomOwnerProfile />
+              </ProtectedRoute>
+            }
+          />
+          
+          {/* 404 Page */}
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Footer />
       </div>
