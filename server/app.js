@@ -14,9 +14,11 @@ const RoomOwner = require('./models/RoomOwner'); // Import RoomOwner model
 const propertiesRoutes = require('./routes/properties');
 const path = require('path');
 const multer = require('multer');
-const uploads = multer({ dest: '/uploads' });
+const fs = require('fs');
+const uploads = multer({ dest: path.join(__dirname, 'uploads') });
 const roomOwnerRoutes = require('./routes/roomOwner');
 const userRoutes = require('./routes/user');
+const uploadDir = path.join(__dirname, 'uploads');
 const bcrypt = require('bcrypt');
 
 const app = express();
@@ -53,6 +55,11 @@ app.use(
     cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 }, // 24 hours
   })
 );
+
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
   setHeaders: (res, filePath) => {
