@@ -283,18 +283,17 @@ const Hero = () => {
                       )}
                     </div>
                     {showContactModal && (
-                      // <div className="contact-modal-overlay">
-                      <div className="contact-modal-overlay">
-                      <div className="contact-modal">
+                     <div className="contact-modal-overlay">
+                      {/* <div className="contact-modal">
                         <h3>Contact Property Owner</h3>
                         <p>Phone: {ownerPhone}</p>
                         <div className="modal-actions">
                           <a href={`tel:+91${ownerPhone.replace(/\D/g, '')}`} className="call-btn">Call Now</a>
                           <button onClick={closeContactModal}>Close</button>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
-                      // </div>
+                    
                     )}
                     <div className="actions">
                       <div className={`status-badge ${property.vacant ? "vacant" : "occupied"}`}>

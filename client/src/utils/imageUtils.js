@@ -1,6 +1,6 @@
 // utils/imageUtils.js
-export const getDefaultProfileImage = () => '/images/default-profile.jpg';
-export const getDefaultPropertyImage = () => '/images/default-property.jpg';
+const getDefaultProfileImage = () => '/images/default-profile.jpg';
+const getDefaultPropertyImage = () => '/default-property.jpg';
 
 export const getImageUrl = (imgPath) => {
     if (!imgPath) return getDefaultPropertyImage();
@@ -19,3 +19,4 @@ export const getImageUrl = (imgPath) => {
     
     return `http://localhost:5000/${cleanPath}`;
 };
+export { getDefaultPropertyImage };

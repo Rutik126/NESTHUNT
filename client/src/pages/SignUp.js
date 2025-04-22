@@ -61,27 +61,25 @@ const SignUp = ({ setIsLoggedIn }) => {
   const sendOtp = async () => {
     try {
       const data = isUser ? userData : roomOwnerData;
-      const phone = data.phone;
+      const identifier = data.phone || data.email;
       
-      if (!phone) {
-        setError('Phone number is required');
+      if (!identifier) {
+        setError('Phone or email is required');
         return;
       }
-  
+
       const response = await axios.post('http://localhost:5000/api/auth/send-otp', {
-        phone: phone
+        phone: data.phone,
+        email: data.email
       });
-  
-      if (response.data.message === 'OTP sent successfully') {
-        setOtpSentTo(phone);
-        setShowOtpField(true);
-        setCountdown(300); // 5 minutes
-        setError('');
-        alert('OTP sent to your phone number');
-      }
+
+      setOtpSentTo(identifier);
+      setOtpSent(true);
+      setShowOtpField(true);
+      setCountdown(300); // 5 minutes
+      setError('');
     } catch (err) {
       setError(err.response?.data?.message || 'Error sending OTP');
-      console.error('OTP Error:', err);
     }
   };
 
@@ -90,19 +88,15 @@ const SignUp = ({ setIsLoggedIn }) => {
       const data = isUser ? userData : roomOwnerData;
       const response = await axios.post('http://localhost:5000/api/auth/verify-otp', {
         phone: data.phone,
-        otp: otp
+        email: data.email,
+        otp
       });
-  
-      if (response.data.verified) {
-        setIsVerified(true);
-        setShowOtpField(false);
-        setError('');
-        alert('Phone number verified successfully');
-      } else {
-        setError('Invalid OTP code');
-      }
+
+      setIsVerified(true);
+      setShowOtpField(false);
+      setError('');
     } catch (err) {
-      setError(err.response?.data?.message || 'Error verifying OTP');
+      setError(err.response?.data?.message || 'Invalid OTP');
     }
   };
 
@@ -256,7 +250,7 @@ const SignUp = ({ setIsLoggedIn }) => {
           <input
             type="tel"
             className="input-field"
-            placeholder="Phone number"
+             placeholder="Phone (e.g., +1234567890)"
             name="phone"
             value={userData.phone}
             onChange={handleUserChange}
@@ -332,15 +326,14 @@ const SignUp = ({ setIsLoggedIn }) => {
           <input
             type="tel"
             className="input-field"
-            placeholder="Phone number"
+             placeholder="Phone (e.g., +1234567890)"
             name="phone"
             value={roomOwnerData.phone}
             onChange={handleRoomOwnerChange}
             required
           />
-
+          
             {renderOtpSection()}
-
           <input
             type="text"
             className="input-field"
