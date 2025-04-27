@@ -13,12 +13,13 @@
   position: relative;
 }
 .background {
-  background-color: #f5f5f5;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      url('https://plus.unsplash.com/premium_photo-1676823553207-758c7a66e9bb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 2px;
 }
 
 .form-box {
@@ -214,7 +215,7 @@
   margin-top: 0px;
   margin-bottom: 0px;
   background: #fff;
-  /* background-image: src = "G:\Project\real-estate-app\client\public\Img\background.jpg"; */
+  /* background-image: src = "client\public\Img\background.jpg"; */
   padding: 5px;
   overflow: hidden;
 }

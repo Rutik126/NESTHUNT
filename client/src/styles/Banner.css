@@ -21,8 +21,9 @@
 }
 
 h2 {
+  background-color: #fff;
   font-family: 'Poppins', sans-serif;
-  color: #007BFF;
+  color: #514C9C;
   font-size: 2rem;
   margin-bottom: 1rem;
   text-transform: uppercase;
@@ -30,7 +31,7 @@ h2 {
 }
 
 p {
-  color: #262626;
+  color: #ffffff;
   font-size: 1.1rem;
   margin-bottom: 2rem;
 }
