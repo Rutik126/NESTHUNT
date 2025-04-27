@@ -193,6 +193,58 @@ router.post('/logout', (req, res) => {
   });
 });
 
+// This will store OTPs temporarily
+const otpStore = new Map();
+
+// Route to send OTP
+router.post('/send-otp', async (req, res) => {
+  try {
+    const { email, phone } = req.body;
+    if (!email && !phone) {
+      return res.status(400).json({ message: 'Email or Phone is required' });
+    }
+
+    // Generate a random 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Save OTP in memory (for now)
+    const identifier = email || phone;
+    otpStore.set(identifier, { otp, expiresAt: Date.now() + 5 * 60 * 1000 }); // Expires in 5 mins
+
+    console.log(`OTP for ${identifier}: ${otp}`); // Later you can integrate email/SMS sending
+
+    res.status(200).json({ message: 'OTP sent successfully' });
+  } catch (error) {
+    console.error('Error sending OTP:', error);
+    res.status(500).json({ message: 'Error sending OTP' });
+  }
+});
+
+// Route to verify OTP
+router.post('/verify-otp', (req, res) => {
+  const { email, phone, otp } = req.body;
+  const identifier = email || phone;
+
+  const storedOtp = otpStore.get(identifier);
+
+  if (!storedOtp) {
+    return res.status(400).json({ message: 'OTP not found or expired' });
+  }
+
+  if (storedOtp.expiresAt < Date.now()) {
+    otpStore.delete(identifier);
+    return res.status(400).json({ message: 'OTP expired' });
+  }
+
+  if (storedOtp.otp !== otp) {
+    return res.status(400).json({ message: 'Invalid OTP' });
+  }
+
+  otpStore.delete(identifier);
+  res.status(200).json({ message: 'OTP verified successfully' });
+});
+
+
 // Check if the user is logged in
 router.get('/check', (req, res) => {
   if (req.isAuthenticated()) {
