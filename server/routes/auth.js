@@ -10,6 +10,8 @@ const auth = require('../middleware/auth');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const path = require('path');
+const twilio = require('twilio');
+const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 
 // Configure multer for file uploads
@@ -196,53 +198,63 @@ router.post('/logout', (req, res) => {
 // This will store OTPs temporarily
 const otpStore = new Map();
 
-// Route to send OTP
+// 📤 Send OTP route (sends SMS using Twilio)
 router.post('/send-otp', async (req, res) => {
   try {
-    const { email, phone } = req.body;
-    if (!email && !phone) {
-      return res.status(400).json({ message: 'Email or Phone is required' });
+    const { phone } = req.body;
+    if (!phone) {
+      return res.status(400).json({ message: 'Phone is required' });
     }
 
     // Generate a random 6-digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Save OTP in memory (for now)
-    const identifier = email || phone;
-    otpStore.set(identifier, { otp, expiresAt: Date.now() + 5 * 60 * 1000 }); // Expires in 5 mins
+    // Save OTP in memory with expiry (5 minutes)
+    otpStore.set(phone, { otp, expiresAt: Date.now() + 5 * 60 * 1000 });
 
-    console.log(`OTP for ${identifier}: ${otp}`); // Later you can integrate email/SMS sending
+    // ✅ Send OTP via Twilio
+    await client.messages.create({
+      body: `Your OTP is ${otp}. It will expire in 5 minutes.`,
+      from: process.env.TWILIO_PHONE_NUMBER, // Twilio phone number (must be verified)
+      to: phone.startsWith('+') ? phone : `+${phone}`, // Add country code if not present
+    });
+
+    console.log(`✅ OTP sent to ${phone}: ${otp}`);
 
     res.status(200).json({ message: 'OTP sent successfully' });
   } catch (error) {
-    console.error('Error sending OTP:', error);
-    res.status(500).json({ message: 'Error sending OTP' });
+    console.error('❌ Error sending OTP:', error);
+    res.status(500).json({ message: 'Error sending OTP', error: error.message });
   }
 });
 
-// Route to verify OTP
+// ✅ Verify OTP route
 router.post('/verify-otp', (req, res) => {
-  const { email, phone, otp } = req.body;
-  const identifier = email || phone;
+  const { phone, otp } = req.body;
+  if (!phone || !otp) {
+    return res.status(400).json({ message: 'Phone and OTP are required' });
+  }
 
-  const storedOtp = otpStore.get(identifier);
+  const storedOtpData = otpStore.get(phone);
 
-  if (!storedOtp) {
+  if (!storedOtpData) {
     return res.status(400).json({ message: 'OTP not found or expired' });
   }
 
-  if (storedOtp.expiresAt < Date.now()) {
-    otpStore.delete(identifier);
+  if (storedOtpData.expiresAt < Date.now()) {
+    otpStore.delete(phone);
     return res.status(400).json({ message: 'OTP expired' });
   }
 
-  if (storedOtp.otp !== otp) {
+  if (storedOtpData.otp !== otp) {
     return res.status(400).json({ message: 'Invalid OTP' });
   }
 
-  otpStore.delete(identifier);
+  // OTP verified successfully
+  otpStore.delete(phone);
   res.status(200).json({ message: 'OTP verified successfully' });
 });
+
 
 
 // Check if the user is logged in
