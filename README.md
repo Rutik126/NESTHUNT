@@ -41,6 +41,7 @@ NESTHUNT is a modern real estate rental platform that connects property owners w
 - MongoDB
 - JWT for authentication
 - Multer for file uploads
+- Twilio for OTP verification
 
 ## 🚀 Getting Started
 
