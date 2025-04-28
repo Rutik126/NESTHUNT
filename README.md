@@ -22,7 +22,6 @@ NESTHUNT is a modern real estate rental platform that connects property owners w
 - User authentication and authorization
 - Responsive design for all devices
 - Real-time property status updates
-- Secure payment integration
 - Interactive property maps
 - Image gallery with navigation
 
@@ -81,7 +80,7 @@ JWT_SECRET=your_jwt_secret
 ```bash
 # Start the backend server
 cd server
-npm run dev
+npm run dev or node app.js
 
 # Start the frontend development server
 cd client
@@ -98,7 +97,7 @@ The application will be available at:
 ```bash
 npm run dev      # Start development server
 npm start        # Start production server
-npm test         # Run tests
+node app.js         # Run tests
 ```
 
 ### Client
@@ -133,7 +132,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-For support, email rutik@example.com or open an issue in the GitHub repository.
+For support, email ruthikkumbhar@gmail.com or open an issue in the GitHub repository.
 
 ## 🔗 Links
 
