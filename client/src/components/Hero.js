@@ -38,14 +38,14 @@ const Hero = () => {
         }
         
         if (token && storedUserType === 'user') {
-          const profile = await axios.get('http://localhost:5000/api/user/profile', {
+          const profile = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/user/profile`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setUser(profile.data.data?.user);
         }
     
         // Fetch properties only for users or guests
-        const propsResponse = await axios.get('http://localhost:5000/api/properties/', {
+        const propsResponse = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties/`, {
           params: { limit: 20 },
           timeout: 5000
         });
@@ -94,7 +94,7 @@ const Hero = () => {
       }
   
       const response = await axios.get(
-        `http://localhost:5000/api/properties/${propertyId}/owner`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties/${propertyId}/owner`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -125,7 +125,7 @@ const Hero = () => {
       }
   
       const response = await axios.post(
-        'http://localhost:5000/api/user/save-property',
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/user/save-property`,
         { propertyId },
         {
           headers: { Authorization: `Bearer ${token}` }

@@ -17,6 +17,6 @@ export const getImageUrl = (imgPath) => {
         return cleanPath;
     }
     
-    return `http://localhost:5000/${cleanPath}`;
+    return `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/${cleanPath}`;
 };
 export { getDefaultPropertyImage };

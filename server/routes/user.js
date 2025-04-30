@@ -24,7 +24,7 @@ router.get('/profile', auth, async (req, res) => {
       user.savedProperties = user.savedProperties.map(property => ({
         ...property,
         mainImage: property.images?.[0] 
-          ? `http://localhost:5000${property.images[0]}` 
+          ? `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${property.images[0]}` 
           : '/default-property.jpg'
       }));
     }

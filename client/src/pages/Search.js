@@ -17,7 +17,7 @@ const Search = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:5000/api/apartments', {
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/apartments`, {
           headers: {
             Authorization: `Bearer ${token}`, // Include token in the request header
           },

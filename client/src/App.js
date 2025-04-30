@@ -37,7 +37,7 @@ function App() {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/auth/check', {
+        const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/auth/check`, {
           credentials: 'include', // Include cookies
         });
         const data = await response.json();
