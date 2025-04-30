@@ -160,6 +160,12 @@ passport.deserializeUser(async (data, done) => {
   }
 });
 
+
+app.get('/', (req, res) => {
+  res.send('Backend is running');
+});
+
+
 // require('dotenv').config();
 
 // Routes
@@ -169,6 +175,8 @@ app.use('/api/roomowner', roomOwnerRoutes);
 app.use('/api/auth', authRoutes);
 // app.use('/api/apartments', apartmentRoutes);
 app.use('/api/properties', propertiesRoutes);
+
+
 
 
 

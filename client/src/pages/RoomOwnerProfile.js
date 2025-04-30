@@ -7,7 +7,7 @@ const RoomOwnerProfile = () => {
   const getImageUrl = (imgPath) => {
     if (!imgPath) return '/default-property.jpg';
     if (imgPath.startsWith('http')) return imgPath;
-    return `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/${imgPath.replace(/^\/+/, '')}`;
+    return `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/${imgPath.replace(/^\/+/, '')}`;
   };
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -46,7 +46,7 @@ const RoomOwnerProfile = () => {
       if (!token) return;
   
       const response = await axios.patch(
-        `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties/${propertyId}/vacancy`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties/${propertyId}/vacancy`,
         { vacant: !currentVacantStatus },
         {
           headers: {
@@ -59,7 +59,7 @@ const RoomOwnerProfile = () => {
       if (response.data.success) {
         // Fetch updated property list
         const updatedProperties = await axios.get(
-          `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties/my-properties`,
+          `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties/my-properties`,
           {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true,
@@ -84,11 +84,11 @@ const RoomOwnerProfile = () => {
   
         setLoading(true);
         const [profileRes, propertiesRes] = await Promise.all([
-          axios.get(`${process.env.VITE_REACT_APP_BACKEND_BASEURL}/api/roomowner/dashboard`, {
+          axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/roomowner/dashboard`, {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true,
           }),
-          axios.get(`${process.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties/my-properties`, {
+          axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties/my-properties`, {
             headers: { Authorization: `Bearer ${token}` },
             withCredentials: true,
           })
@@ -162,7 +162,7 @@ const RoomOwnerProfile = () => {
   
       // Submit property
       const response = await axios.post(
-        `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties`,
         formData,
         {
           headers: {
@@ -177,7 +177,7 @@ const RoomOwnerProfile = () => {
         // Refresh properties list
         try {
           const propertiesResponse = await axios.get(
-            `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties/my-properties`,
+            `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/properties/my-properties`,
             {
               headers: { Authorization: `Bearer ${token}` },
               withCredentials: true,
@@ -354,7 +354,7 @@ const ProfilePage = ({ roomOwner, properties, advertisement }) => (
       <img
         src={
           roomOwner.profilePhoto
-            ? `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/${roomOwner.profilePhoto.replace(/\\/g, '/')}`
+            ? `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/${roomOwner.profilePhoto.replace(/\\/g, '/')}`
             : "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
         }
         alt="Profile"
@@ -626,7 +626,7 @@ const ManagePropertiesPage = ({ properties, setActivePage, toggleVacancy }) => {
         properties.map((property) => {
           const images = property.images || (property.image ? [property.image] : []);
           const mainImage = images[0] ? 
-          (images[0].startsWith("http") ? images[0] : `${process.env.VITE_REACT_APP_BACKEND_BASEURL}${images[0]}`) 
+          (images[0].startsWith("http") ? images[0] : `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${images[0]}`) 
           : '/default-property.jpg';
           const address = getCleanAddress(property.location);
           const mapLink = property.location?.coordinates

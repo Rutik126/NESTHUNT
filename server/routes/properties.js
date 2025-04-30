@@ -92,13 +92,13 @@ router.get('/', async (req, res) => {
       
       // Convert images to full URLs
       propertyObj.images = propertyObj.images.map(img => 
-        img.startsWith('http') ? img : `${process.env.VITE_REACT_APP_BACKEND_BASEURL}${img}`
+        img.startsWith('http') ? img : `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${img}`
       );
       
       // Convert mainImage to full URL
       propertyObj.mainImage = propertyObj.mainImage?.startsWith('http') 
         ? propertyObj.mainImage 
-        : `${process.env.VITE_REACT_APP_BACKEND_BASEURL}${propertyObj.mainImage}`;
+        : `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${propertyObj.mainImage}`;
       
       return propertyObj;
     });
@@ -153,7 +153,7 @@ router.post('/', auth, upload.array('images', 5), async (req, res) => {
       success: true,
       property: {
         ...property._doc,
-        images: images.map(img => `${process.env.VITE_REACT_APP_BACKEND_BASEURL}${img}`)
+        images: images.map(img => `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${img}`)
       }
     });
   } catch (err) {
@@ -201,8 +201,8 @@ router.get('/my-properties', auth, async (req, res) => {
     // Enhance properties with full image URLs
     const enhancedProperties = properties.map(property => ({
       ...property._doc,
-      images: property.images.map(img => `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/${img.replace(/^\/+/, '')}`),
-      mainImage: property.mainImage ? `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/${property.mainImage.replace(/^\/+/, '')}` : null
+      images: property.images.map(img => `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/${img.replace(/^\/+/, '')}`),
+      mainImage: property.mainImage ? `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/${property.mainImage.replace(/^\/+/, '')}` : null
     }));
 
     res.json({ 

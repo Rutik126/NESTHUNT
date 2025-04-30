@@ -52,7 +52,7 @@ const UserProfile = () => {
           return;
         }
 
-        const response = await axios.get(`${process.env.VITE_REACT_APP_BACKEND_BASEURL}/api/user/profile`, {
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/user/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -97,7 +97,7 @@ const UserProfile = () => {
       }
 
       const response = await axios.delete(
-        `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/api/user/remove-saved-property`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/user/remove-saved-property`,
         {
           headers: { Authorization: `Bearer ${token}` },
           data: { propertyId }
@@ -152,7 +152,7 @@ const UserProfile = () => {
             <img
               src={
                 profile.profilePhoto
-                  ? `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/${profile.profilePhoto.replace(/\\/g, '/')}`
+                  ? `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/${profile.profilePhoto.replace(/\\/g, '/')}`
                   : 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'
               }
               alt="Profile"
