@@ -18,7 +18,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
           ? '/api/user/profile' 
           : '/api/roomowner/profile';
 
-        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${endpoint}`, {
+        const response = await axios.get(`${process.env.VITE_REACT_APP_BACKEND_BASEURL}${endpoint}`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
@@ -36,7 +36,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
 
   const handleLogout = async () => {
     try {
-      await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/auth/logout`, {}, { withCredentials: true });
+      await axios.post(`${process.env.VITE_REACT_APP_BACKEND_BASEURL}/api/auth/logout`, {}, { withCredentials: true });
       setIsLoggedIn(false);
       localStorage.removeItem('token');
       localStorage.removeItem('userType');
@@ -63,7 +63,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
             <img
               src={
                 userData?.profilePhoto
-                  ? `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/${userData.profilePhoto.replace(/\\/g, '/')}`
+                  ? `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/${userData.profilePhoto.replace(/\\/g, '/')}`
                   : 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'
               }
               alt="Profile"

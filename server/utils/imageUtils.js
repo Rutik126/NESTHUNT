@@ -16,6 +16,6 @@ export const getProfileImageUrl = (imagePath) => {
   // Remove any leading server path if present
   // const relativePath = normalizedPath.replace(/^.*\/uploads\//, '/uploads/');
   
-  // return `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${relativePath}`;
-  return `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/${cleanPath}`;
+  // return `${process.env.VITE_REACT_APP_BACKEND_BASEURL}${relativePath}`;
+  return `${process.env.VITE_REACT_APP_BACKEND_BASEURL}/${cleanPath}`;
 };
