@@ -14,7 +14,7 @@ const SignIn = ({ setIsLoggedIn }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/auth/login`, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_BASEURL}/api/auth/login`, {
         email,
         password,
         userType, // Include userType in the request
